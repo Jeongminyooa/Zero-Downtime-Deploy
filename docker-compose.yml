@@ -2,25 +2,8 @@ version: "3"
 
 services:
 
-  database:
-    container_name: mysql
-    image: mysql/mysql-server:latest
-    environment:
-      MYSQL_DATABASE: test
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: test1234
-      MYSQL_ROOT_HOST: '%'
-      MYSQL_ROOT_PASSWORD: rootpwd
-    command:
-      - --default-authentication-plugin=mysql_native_password
-    ports:
-      - 3305:3306
-    networks:
-      - db_network
-    restart: always
-
-  web-server:
-    image: nginx
+  nginx:
+    image: nginx:1.15-alpine
     container_name: nginx
     restart: always
     ports:
@@ -28,27 +11,27 @@ services:
       - "443:443"
     volumes:
       - ./nginx/:/etc/nginx/conf.d/
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/log/nginx/web:/var/log/nginx/web
+    command:
+      "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
   green:
     build: .
-    container_name: myweb-green
+    container_name: green
     restart: always
     expose:
       - 8080
-    depends_on:
-      - database
     volumes:
       - ./:/home/ubuntu
       - /etc/localtime:/etc/localtime
 
   blue:
     build: .
-    container_name: myweb-blue
+    container_name: blue
     restart: always
     expose:
       - 8080
-    depends_on:
-      - database
     volumes:
       - ./:/home/ubuntu
       - /etc/localtime:/etc/localtime

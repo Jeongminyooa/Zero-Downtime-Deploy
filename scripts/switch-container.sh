@@ -20,9 +20,8 @@ if [ -z "$RUNNING_APPLICATION"  ];then
   		sleep 3
       done;
 
-    docker stop nginx
-   	docker rm nginx
-   	docker-compose up -d nginx
+    sed -i 's/green/blue/g' $DEFAULT_CONF
+    sudo docker exec -it nginx nginx -s reload
 else
 	echo "green Deploy..."
 	  docker-compose stop blue
@@ -41,7 +40,5 @@ else
   	done;
 
   	sed -i 's/blue/green/g' $DEFAULT_CONF
-  	docker stop nginx
-  	docker rm nginx
-  	docker-compose up -d nginx
+  	sudo docker exec -it nginx nginx -s reload
 fi

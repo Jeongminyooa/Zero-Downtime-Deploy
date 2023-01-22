@@ -4,7 +4,7 @@ services:
 
   nginx:
     image: nginx:1.15-alpine
-    container_name: nginx
+    container_name: nginx-container
     restart: always
     ports:
       - "80:80"
@@ -21,7 +21,7 @@ services:
     container_name: green
     restart: always
     ports:
-      - "8081:8080"
+      - "8080:8080"
     volumes:
       - ./:/home/ubuntu
       - /etc/localtime:/etc/localtime
@@ -31,7 +31,7 @@ services:
     container_name: blue
     restart: always
     ports:
-      - "8082:8080"
+      - "8080:8080"
     volumes:
       - ./:/home/ubuntu
       - /etc/localtime:/etc/localtime

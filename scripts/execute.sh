@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd /home/ubuntu/zero-downtime-deploy
-sh scripts/switch-application.sh
+sh scripts/switch-container.sh

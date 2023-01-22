@@ -35,7 +35,3 @@ services:
     volumes:
       - ./:/home/ubuntu
       - /etc/localtime:/etc/localtime
-
-networks:
-  db_network:
-    driver: bridge

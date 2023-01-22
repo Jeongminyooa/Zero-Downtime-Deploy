@@ -1,4 +1,7 @@
 # !/bin/bash
+
+cd /home/ubuntu/zero-downtime-deploy
+
 RUNNING_APPLICATION=$(docker ps | grep blue)
 DEFAULT_CONF="nginx/default.conf"
 

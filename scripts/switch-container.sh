@@ -19,7 +19,7 @@ if [ -z "$RUNNING_APPLICATION"  ];then
       done;
 
     sed -i 's/green:8080/blue:8081/g' $DEFAULT_CONF
-    sudo docker exec -it nginx nginx -s reload
+    sudo docker exec -it nginx-container nginx -s reload
     docker-compose stop green
 else
 	echo "green Deploy..."
@@ -37,6 +37,6 @@ else
   	done;
 
   	sed -i 's/blue:8081/green:8080/g' $DEFAULT_CONF
-  	sudo docker exec -it nginx nginx -s reload
+  	sudo docker exec -it nginx-container nginx -s reload
   	docker-compose stop blue
 fi

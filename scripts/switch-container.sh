@@ -1,13 +1,11 @@
 # !/bin/bash
 
 RUNNING_APPLICATION=$(docker ps | grep blue)
-DEFAULT_CONF="../nginx/default.conf"
+DEFAULT_CONF="/home/ubuntu/zero-downtime-deploy/nginx/default.conf"
 
 if [ -z "$RUNNING_APPLICATION"  ];then
 	echo "blue Deploy..."
-	  docker-compose stop green
-
-  	docker-compose pull blue
+	 	docker-compose pull blue
     docker-compose up -d blue
 
   	while [ 1 == 1 ]; do
@@ -22,11 +20,10 @@ if [ -z "$RUNNING_APPLICATION"  ];then
 
     sed -i 's/green/blue/g' $DEFAULT_CONF
     sudo docker exec -it nginx nginx -s reload
+    docker-compose stop green
 else
 	echo "green Deploy..."
-	  docker-compose stop blue
-
-  	docker-compose pull green
+	  docker-compose pull green
   	docker-compose up -d green
 
   	while [ 1 == 1 ]; do
@@ -41,4 +38,5 @@ else
 
   	sed -i 's/blue/green/g' $DEFAULT_CONF
   	sudo docker exec -it nginx nginx -s reload
+  	docker-compose stop blue
 fi

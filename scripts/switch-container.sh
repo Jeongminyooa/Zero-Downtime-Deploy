@@ -5,6 +5,8 @@ DEFAULT_CONF="../nginx/default.conf"
 
 if [ -z "$RUNNING_APPLICATION"  ];then
 	echo "blue Deploy..."
+	  docker-compose stop green
+
   	docker-compose pull blue
     docker-compose up -d blue
 
@@ -18,13 +20,13 @@ if [ -z "$RUNNING_APPLICATION"  ];then
   		sleep 3
       done;
 
-  	sed -i 's/green/blue/g' $DEFAULT_CONF
     docker stop nginx
    	docker rm nginx
    	docker-compose up -d nginx
-  	docker-compose stop green
 else
 	echo "green Deploy..."
+	  docker-compose stop blue
+
   	docker-compose pull green
   	docker-compose up -d green
 
@@ -42,5 +44,4 @@ else
   	docker stop nginx
   	docker rm nginx
   	docker-compose up -d nginx
-  	docker-compose stop blue
 fi

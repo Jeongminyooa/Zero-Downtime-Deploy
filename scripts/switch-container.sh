@@ -18,7 +18,7 @@ if [ -z "$RUNNING_APPLICATION"  ];then
   		sleep 3
       done;
 
-    sed -i 's/green/blue/g' $DEFAULT_CONF
+    sed -i 's/green:8080/blue:8081/g' $DEFAULT_CONF
     sudo docker exec -it nginx nginx -s reload
     docker-compose stop green
 else
@@ -36,7 +36,7 @@ else
   		sleep 3
   	done;
 
-  	sed -i 's/blue/green/g' $DEFAULT_CONF
+  	sed -i 's/blue:8081/green:8080/g' $DEFAULT_CONF
   	sudo docker exec -it nginx nginx -s reload
   	docker-compose stop blue
 fi

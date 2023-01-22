@@ -9,7 +9,7 @@ permissions: write-all #테스트 결과 작성을 위해 쓰기권한 추가
 
 env: # 새로 추가한 부분
   S3_BUCKET_NAME: myweb-zero-downtime-deploy
-  PROJECT_NAME: zero-downtime-web
+  PROJECT_NAME: zero-downtime-deploy
 
 
 jobs:

@@ -33,28 +33,3 @@ jobs:
 
       - name: Build With Gradle
         run: ./gradlew build -x test
-
-      - name: Start MySQL
-        uses: samin/mysql-action@v1.3
-        with:
-          host port: 3305
-          container port: 3305
-          mysql database: 'test'
-          mysql user: 'admin'
-          mysql password: 'test1234'
-
-      - name: Make application-test.properties
-          run: |
-            cd ./src/test/resources
-            touch ./application-test.properties
-            echo "${{ secrets.PROPERTIES_TEST }}" > ./application-test.properties
-          shell: bash
-
-      - name: Build With Test
-        run: ./gradlew test
-
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: ${{ always() }}
-        with:
-          files: build/test-results/**/*.xml

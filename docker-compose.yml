@@ -21,7 +21,7 @@ services:
     container_name: green
     restart: always
     expose:
-      - 8080
+      - "8080"
     volumes:
       - ./:/home/ubuntu
       - /etc/localtime:/etc/localtime
@@ -31,7 +31,7 @@ services:
     container_name: blue
     restart: always
     expose:
-      - 8080
+      - "8080"
     volumes:
       - ./:/home/ubuntu
       - /etc/localtime:/etc/localtime

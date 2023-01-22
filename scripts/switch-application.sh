@@ -1,7 +1,5 @@
 # !/bin/bash
 
-cd /home/ubuntu/zero-downtime-deploy
-
 RUNNING_APPLICATION=$(docker ps | grep blue)
 DEFAULT_CONF="nginx/default.conf"
 
@@ -21,7 +19,9 @@ if [ -z "$RUNNING_APPLICATION"  ];then
 	done;
 
 	sed -i 's/blue/green/g' $DEFAULT_CONF
-	docker exec nginx service nginx reload
+	docker stop nginx
+	docker rm nginx
+	docker-compose up -d nginx
 	docker-compose stop blue
 else
 	echo "blue Deploy..."
@@ -39,6 +39,8 @@ else
     done;
 
 	sed -i 's/green/blue/g' $DEFAULT_CONF
-  docker exec nginx service nginx reload
+  docker stop nginx
+ 	docker rm nginx
+ 	docker-compose up -d nginx
 	docker-compose stop green
 fi

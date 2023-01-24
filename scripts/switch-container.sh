@@ -19,8 +19,10 @@ if [ -z "$RUNNING_APPLICATION"  ];then
   		sleep 3
       done;
 
-    docker-compose stop green
-    docker image prune -af # 사용하지 않는 이미지 삭제
+    sed -i 's/green:8081/blue:8082/g' $DEFAULT_CONF
+    sudo docker exec -d nginx-container nginx -s reload
+    #docker-compose stop green
+    #docker image prune -af # 사용하지 않는 이미지 삭제
 else
 	echo "green Deploy..."
 	  docker-compose pull green
@@ -37,6 +39,10 @@ else
   		sleep 3
   	done;
 
-  	docker-compose stop blue
-  	docker image prune -af # 사용하지 않는 이미지 삭제
+    sed -i 's/blue:8082/green:8081/g' $DEFAULT_CONF
+    sudo docker exec -d nginx-container nginx -s reload
+    echo "> docker exec -it nginx nginx -s reload"
+
+  	#docker-compose stop blue
+  	#docker image prune -af # 사용하지 않는 이미지 삭제
 fi

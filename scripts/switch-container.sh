@@ -8,7 +8,8 @@ if [ -z "$RUNNING_APPLICATION"  ];then
 	 	docker-compose pull blue
     docker-compose up -d blue
 
-  	while [ 1 == 1 ]; do
+  	while :
+  	do
   		echo "blue health check...."
       REQUEST=$(docker ps | grep blue)
       echo $REQUEST
@@ -26,7 +27,8 @@ else
 	  docker-compose pull green
   	docker-compose up -d green
 
-  	while [ 1 == 1 ]; do
+  	while :
+  	do
   		echo "green health check...."
   		REQUEST=$(docker ps | grep green)
   		echo $REQUEST

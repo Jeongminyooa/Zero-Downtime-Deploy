@@ -24,7 +24,6 @@ if [ -z "$RUNNING_APPLICATION"  ];then
     echo "nginx reload..."
     sudo docker exec -d nginx-container nginx -s reload
 
-    wait
     docker-compose stop green
     docker image prune -af # 사용하지 않는 이미지 삭제
 else
@@ -48,7 +47,6 @@ else
     echo "nginx reload..."
     sudo docker exec -d nginx-container nginx -s reload
 
-    wait
   	docker-compose stop blue
   	docker image prune -af # 사용하지 않는 이미지 삭제
 fi

@@ -20,6 +20,7 @@ if [ -z "$RUNNING_APPLICATION"  ];then
       done;
 
     docker-compose stop green
+    docker image prune -af # 사용하지 않는 이미지 삭제
 else
 	echo "green Deploy..."
 	  docker-compose pull green
@@ -37,4 +38,5 @@ else
   	done;
 
   	docker-compose stop blue
+  	docker image prune -af # 사용하지 않는 이미지 삭제
 fi

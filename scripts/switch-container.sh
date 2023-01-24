@@ -11,7 +11,7 @@ if [ -z "$RUNNING_APPLICATION"  ];then
   	while :
   	do
   		echo "blue health check...."
-      REQUEST=$(docker ps | grep blue)
+      REQUEST=$(docker ps | grep blue | grep Up)
       echo $REQUEST
   		if [ -n "$REQUEST" ]; then
               break ;
@@ -31,7 +31,7 @@ else
   	while :
   	do
   		echo "green health check...."
-  		REQUEST=$(docker ps | grep green)
+  		REQUEST=$(docker ps | grep green | grep Up)
   		echo $REQUEST
   		if [ -n "$REQUEST" ]; then
   			break ;

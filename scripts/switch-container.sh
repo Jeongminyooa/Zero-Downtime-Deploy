@@ -21,7 +21,7 @@ if [ -z "$RUNNING_APPLICATION"  ];then
 
     sed -i 's/8080/8081/g' $DEFAULT_CONF
 
-    # nginx reload
+    echo "nginx reload..."
     sudo docker exec -d nginx-container nginx -s reload
 
     docker-compose stop green
@@ -44,8 +44,9 @@ else
 
   	sed -i 's/8081/8080/g' $DEFAULT_CONF
 
-    # nginx reload
+    echo "nginx reload..."
     sudo docker exec -d nginx-container nginx -s reload
+
   	docker-compose stop blue
   	docker image prune -af # 사용하지 않는 이미지 삭제
 fi

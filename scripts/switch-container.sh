@@ -19,13 +19,7 @@ if [ -z "$RUNNING_APPLICATION"  ];then
   		sleep 3
       done;
 
-    sed -i 's/8080/8081/g' $DEFAULT_CONF
-
-    echo "nginx reload..."
-    docker restart nginx-container
-
     docker-compose stop green
-    docker image prune -af # 사용하지 않는 이미지 삭제
 else
 	echo "green Deploy..."
 	  docker-compose pull green
@@ -42,11 +36,5 @@ else
   		sleep 3
   	done;
 
-  	sed -i 's/8081/8080/g' $DEFAULT_CONF
-
-    echo "nginx reload..."
-    docker restart nginx-container
-
   	docker-compose stop blue
-  	docker image prune -af # 사용하지 않는 이미지 삭제
 fi

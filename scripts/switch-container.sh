@@ -6,7 +6,7 @@ DEFAULT_CONF="/home/ubuntu/zero-downtime-deploy/nginx/default.conf"
 if [ -z "$RUNNING_APPLICATION"  ];then
 	echo "blue Deploy..."
 	 	docker-compose pull blue
-    docker-compose up -d blue
+    docker-compose up --build -d blue
 
   	while :
   	do
@@ -26,7 +26,7 @@ if [ -z "$RUNNING_APPLICATION"  ];then
 else
 	echo "green Deploy..."
 	  docker-compose pull green
-  	docker-compose up -d green
+  	docker-compose up --build -d green
 
   	while :
   	do

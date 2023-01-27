@@ -4,7 +4,11 @@ RUNNING_APPLICATION=$(docker ps | grep blue)
 DEFAULT_CONF="/home/ubuntu/zero-downtime-deploy/nginx/default.conf"
 
 if [ -z "$RUNNING_APPLICATION"  ];then
-	echo "blue Deploy..."
+	echo "green build & push..."
+	  docker build -f Dockerfile -t jeongminyooa/myweb-blue .
+    docker push jeongminyooa/myweb-blue
+
+  echo "blue Deploy..."
 	 	docker-compose pull blue
     docker-compose up --build -d blue
 
@@ -21,12 +25,17 @@ if [ -z "$RUNNING_APPLICATION"  ];then
 
     sed -i 's/green/blue/g' $DEFAULT_CONF
     sudo docker exec -d nginx-container nginx -s reload
-    echo "> docker exec -it nginx nginx -s reload"
+    echo "> docker exec -it nginx-container nginx -s reload"
 
     docker-compose stop green
     docker image prune -af # 사용하지 않는 이미지 삭제
 else
-	echo "green Deploy..."
+	echo "green build & push..."
+
+	  docker build -f Dockerfile -t jeongminyooa/myweb-green .
+    docker push jeongminyooa/myweb-green
+
+    echo "green Deploy..."
 	  docker-compose pull green
   	docker-compose up --build -d green
 
@@ -43,7 +52,7 @@ else
 
     sed -i 's/blue/green/g' $DEFAULT_CONF
     sudo docker exec -d nginx-container nginx -s reload
-    echo "> docker exec -it nginx nginx -s reload"
+    echo "> docker exec -it nginx-container nginx -s reload"
 
   	docker-compose stop blue
   	docker image prune -af # 사용하지 않는 이미지 삭제

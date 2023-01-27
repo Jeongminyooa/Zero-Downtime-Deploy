@@ -46,6 +46,13 @@ jobs:
         #  docker build -f Dockerfile -t ${{ secrets.DOCKER_REPO }}/zero-downtime-web .
         #  docker push ${{ secrets.DOCKER_REPO }}/zero-downtime-web
 
+      # Docker hub 로그인
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_ID }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Make a zip file
         run : zip -r ./$GITHUB_SHA.zip .
         shell: bash

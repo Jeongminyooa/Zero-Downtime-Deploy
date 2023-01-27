@@ -5,8 +5,8 @@ DEFAULT_CONF="/home/ubuntu/zero-downtime-deploy/nginx/default.conf"
 
 if [ -z "$RUNNING_APPLICATION"  ];then
 	echo "green build & push..."
-	  docker build -f Dockerfile -t jeongminyooa/myweb-blue .
-    docker push jeongminyooa/myweb-blue
+	  docker build -f Dockerfile -t jeongminyoo/myweb-blue .
+    docker push jeongminyoo/myweb-blue
 
   echo "blue Deploy..."
 	 	docker-compose pull blue
@@ -32,8 +32,8 @@ if [ -z "$RUNNING_APPLICATION"  ];then
 else
 	echo "green build & push..."
 
-	  docker build -f Dockerfile -t jeongminyooa/myweb-green .
-    docker push jeongminyooa/myweb-green
+	  docker build -f Dockerfile -t jeongminyoo/myweb-green .
+    docker push jeongminyoo/myweb-green
 
     echo "green Deploy..."
 	  docker-compose pull green

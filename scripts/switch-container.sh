@@ -4,10 +4,6 @@ RUNNING_APPLICATION=$(docker ps | grep blue)
 DEFAULT_CONF="/home/ubuntu/zero-downtime-deploy/nginx/default.conf"
 
 if [ -z "$RUNNING_APPLICATION"  ];then
-	echo "green build & push..."
-	  docker build -f Dockerfile -t jeongminyoo/myweb-blue .
-    docker push jeongminyoo/myweb-blue
-
   echo "blue Deploy..."
 	 	docker-compose pull blue
     docker-compose up --build -d blue
@@ -30,11 +26,6 @@ if [ -z "$RUNNING_APPLICATION"  ];then
     docker-compose stop green
     docker image prune -af # 사용하지 않는 이미지 삭제
 else
-	echo "green build & push..."
-
-	  docker build -f Dockerfile -t jeongminyoo/myweb-green .
-    docker push jeongminyoo/myweb-green
-
     echo "green Deploy..."
 	  docker-compose pull green
   	docker-compose up --build -d green

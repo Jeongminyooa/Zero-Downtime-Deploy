@@ -20,7 +20,7 @@ services:
 
   green:
     build: .
-    image: jeongminyoo/myweb-green
+    image: green
     container_name: green
     restart: always
     ports:
@@ -33,7 +33,7 @@ services:
 
   blue:
     build: .
-    container_name: jeongminyoo/myweb-blue
+    container_name: blue
     restart: always
     ports:
       - "8082:8080"
